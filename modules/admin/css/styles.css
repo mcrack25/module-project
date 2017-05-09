@@ -1,0 +1,64 @@
+#add_form_user .table tbody tr th{
+    vertical-align: middle;
+}
+
+.actions a {
+    padding: 5px;
+}
+
+.actions .fa-pencil {
+    color: #29b6f6;
+}
+
+.actions .fa-trash-o {
+    color: #f05050;
+}
+
+#checkbox_inline ul{
+    list-style: none;
+    text-align: left;
+}
+
+#checkbox_inline ul li{
+    display: inline-block;
+    width: 49%;
+}
+
+#delete_form_role .table tbody tr th{
+    vertical-align: middle;
+}
+
+#form_table .table tbody tr th{
+    vertical-align: middle;
+}
+
+.form_table .table tbody tr th{
+    vertical-align: middle;
+}
+
+.table_middle tbody tr th{
+    vertical-align: middle !important;
+}
+
+.table_middle tbody tr td{
+    vertical-align: middle !important;
+}
+
+.text_page{
+    color: #333;
+}
+
+.invalid_merops{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.invalid_merops li{
+    border-bottom: 1px solid #333;
+}
+
+ul.invalid_merops li:last-child{
+    border:none;
+}
+
