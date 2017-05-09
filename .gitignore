@@ -1,1 +1,3 @@
-.idea/
+# IntellijIdea files
+.idea
+out
