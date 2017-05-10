@@ -7,9 +7,12 @@ use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
 use Illuminate\Http\Request;
 use App\Modules\Admin\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends AdminController
 {
+
     public function all(Request $request){
 
         $request_all = $request->all();
@@ -49,7 +52,6 @@ class UserController extends AdminController
             $this->validate($request, [
                 'date_s' => 'required|date|date_format:d.m.Y',
             ]);
-
             $date_s = $request_all['date_s'];
         }
 
@@ -61,7 +63,7 @@ class UserController extends AdminController
             $date_po = $request_all['date_po'];
         }
 
-        $users = User::with('role')->OnDates($date_type, $date_s, $date_po)->Search($search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
+        $users = User::with('role')->OnDates($date_type, $date_s, $date_po)->Search(['name', 'email'], $search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
 
         $data = [
             'users'=> $users,
@@ -79,6 +81,12 @@ class UserController extends AdminController
 
     public function add(){
         $roles = Role::all();
+
+        $new_role = new Role();
+        $new_role->id = 0;
+        $new_role->ru_name = 'Без роли';
+        $roles[] = $new_role;
+
         $data = [
             'roles'=>$roles
         ];
@@ -88,6 +96,12 @@ class UserController extends AdminController
     public function edit($id){
         $user = User::findOrFail($id);
         $roles = Role::All();
+
+        $new_role = new Role();
+        $new_role->id = 0;
+        $new_role->ru_name = 'Без роли';
+        $roles[] = $new_role;
+
         $data = [
             'user'=>$user,
             'roles'=>$roles
@@ -104,15 +118,87 @@ class UserController extends AdminController
     }
 
     /* POST запросы */
-    public function post_add(){
-        echo 'ok';
+    public function post_add(Request $request){
+        $request_all = $request->all();
+
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'role_id' => 'required|numeric',
+        ]);
+
+        if($request_all['role_id'] == 0){
+            $request_all['role_id'] = null;
+        }
+
+        $request_all['password'] = bcrypt($request_all['password']);
+
+        User::create($request_all);
+        return redirect()->route('admin.users.all')->with('message', trans('core::users.message_add'));
     }
 
-    public function post_edit($id){
-        echo 'ok';
+    public function post_edit(Request $request, $id){
+        $request_all = $request->all();
+
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email' . ',' . $id,
+            'password' => 'required|min:6|confirmed',
+            'role_id' => 'required|numeric',
+        ]);
+
+        $find_user = User::findOrFail($id);
+        $find_user->name = $request_all['name'];
+        $find_user->email = $request_all['email'];
+        $find_user->password = bcrypt($request_all['password']);
+
+        if($request_all['role_id'] == 0){
+            $find_user->role_id = null;
+        } else {
+            $find_user->role_id = $request_all['role_id'];
+        }
+
+        $find_user->save();
+
+        return redirect()->route('admin.users.edit', $id)->with('message', trans('core::users.message_edit'));
     }
 
-    public function post_delete($id){
-        echo 'ok';
+    public function post_delete(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $this->validate($request, [
+            'user_ids.*' => 'required|numeric',
+        ]);
+
+        $request_all = $request->all();
+
+        $where_in = $request_all['user_ids'];
+
+        if(empty($where_in)){
+            return redirect()->route('admin.users.all')->withErrors([trans('core::users.error_delete_empty')]);
+        }
+
+        $user_in_deleted = false;
+        foreach($where_in as $key => $value){
+            if($user_id == $value){
+                unset($where_in[$key]);
+                $user_in_deleted = true;
+            }
+        }
+
+        $delete_me = Validator::make([],[]);
+        if($user_in_deleted){
+            $delete_me->errors()->add('delete_me', trans('core::users.error_delete_me'));
+        }
+
+        User::whereIn('id', $where_in)->delete();
+
+        if(empty($where_in)){
+            return redirect()->route('admin.users.all')->withErrors($delete_me);
+        } else {
+            return redirect()->route('admin.users.all')->withErrors($delete_me)->with('message', trans('core::users.message_delete'));
+        }
     }
 }

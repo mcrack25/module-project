@@ -11,7 +11,7 @@ trait Searchable{
 
     public function scopeSearch($query, $name = null, $like_text = null){
 
-        if((!empty($name)) and (!empty($like))){
+        if((!empty($name)) and (!empty($like_text))){
 
             if(is_array($name)){
                 $loop = 1;
