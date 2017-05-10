@@ -35,10 +35,8 @@
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-addon">Дата:</span>
                                     <select name="date_type" class="form-control">
-                                        @if(isset($date_type))
-                                            <option value="created_at" {{ ($date_type == 'created_at') ? 'selected' : '' }}>Регистрации</option>
-                                            <option value="updated_at" {{ ($date_type == 'updated_at') ? 'selected' : '' }}>Изменения</option>
-                                        @endif
+                                        <option value="created_at" {{ ($date_type == 'created_at') ? 'selected' : '' }}>Регистрации</option>
+                                        <option value="updated_at" {{ ($date_type == 'updated_at') ? 'selected' : '' }}>Изменения</option>
                                     </select>
                                     <span class="input-group-addon">С:</span>
                                     <input name="date_s" type="text" class="datepicker-autoclose form-control" autocomplete="off" placeholder="дд.мм.гггг" id="date_s" value="{{ $date_s or '' }}">
