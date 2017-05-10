@@ -7,6 +7,6 @@ return [
   'description_edit' => 'Изменить данные пользователя',
   'description_delete' => 'Удалить пользователя',
 
-  'items_not_isset' => 'Не определена переменная $items',
+  'items_not_isset' => 'Не определена переменная $users',
   'items_none' => 'Не найдено ни одной записи'
 ];

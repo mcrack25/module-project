@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin::main')
 
 @section('content')
     <div class="row">
@@ -7,14 +7,14 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="m-t-0 header-title"><b>Добавить пользователя</b></h4>
+                        <h4 class="m-t-0 header-title"><b>{{ trans('core::users.top_name') }}</b></h4>
                         <p class="text-muted font-13 m-b-30">
-                            Добавление нового пользователя.
+                            {{ trans('core::users.description_add') }}
                         </p>
                     </div>
                 </div>
 
-                <form id="add_form_user" role="form" method="POST" action="{{ route('admin.users_post_add') }}">
+                <form id="add_form_user" role="form" method="POST" action="{{ route('admin.users.post_add') }}">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-sm-12">
@@ -55,7 +55,7 @@
                                     <tr role="row">
                                         <th colspan="2" class="text-center">
                                             <button type="submit" class="btn btn-success waves-effect waves-light m-l-10 btn-md"><i class="glyphicon glyphicon-plus"></i> Добавить</button>
-                                            <a href="{{ route('admin.users') }}" class="btn btn-primary waves-effect waves-light m-l-10 btn-md"><i class="glyphicon glyphicon-arrow-left"></i> Вернуться</a>
+                                            <a href="{{ route('admin.users.all') }}" class="btn btn-primary waves-effect waves-light m-l-10 btn-md"><i class="glyphicon glyphicon-arrow-left"></i> Вернуться</a>
                                         </th>
                                     </tr>
                                 </tbody>

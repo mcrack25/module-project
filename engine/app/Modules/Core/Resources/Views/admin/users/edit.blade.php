@@ -1,4 +1,4 @@
-@extends('admin.main')
+@extends('admin::main')
 
 @section('content')
     <div class="row">
@@ -7,16 +7,15 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="m-t-0 header-title"><b>Изменение данных пользователя</b></h4>
+                        <h4 class="m-t-0 header-title"><b>{{ trans('core::users.top_name') }}</b></h4>
                         <p class="text-muted font-13 m-b-30">
-                            Изменение данных пользователя.
+                            {{ trans('core::users.description_edit') }}
                         </p>
                     </div>
                 </div>
 
-                <form id="add_form_user" role="form" method="POST" action="{{ route('admin.users_post_edit') }}">
+                <form id="add_form_user" role="form" method="POST" action="{{ route('admin.users.post_edit', $user->id) }}">
                     {{ csrf_field() }}
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
                     <div class="row">
                         <div class="col-sm-12">
                             <table id="datatable" class="table table-bordered dataTable no-footer text-center" role="grid" >
@@ -56,7 +55,7 @@
                                     <tr role="row">
                                         <th colspan="2" class="text-center">
                                             <button type="submit" class="btn btn-success waves-effect waves-light m-l-10 btn-md"><i class="glyphicon glyphicon-floppy-disk"></i> Сохранить</button>
-                                            <a href="{{ route('admin.users') }}" class="btn btn-primary waves-effect waves-light m-l-10 btn-md"><i class="glyphicon glyphicon-arrow-left"></i> Вернуться</a>
+                                            <a href="{{ route('admin.users.all') }}" class="btn btn-primary waves-effect waves-light m-l-10 btn-md"><i class="glyphicon glyphicon-arrow-left"></i> Вернуться</a>
                                         </th>
                                     </tr>
                                 </tbody>

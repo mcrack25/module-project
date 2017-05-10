@@ -119,17 +119,17 @@
                                 </thead>
 
                                 <tbody>
-                                    @if(isset($items))
-                                        @if($items->count() > 0)
-                                            @foreach ($items as $item)
+                                    @if(isset($users))
+                                        @if($users->count() > 0)
+                                            @foreach ($users as $user)
                                                 <tr role="row" class="{{ ($loop->count % 2) ? 'odd' : 'even' }}">
-                                                    <td>{{ $item->id }}</td>
-                                                    <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->role->ru_name or 'Нет роли' }}</td>
+                                                    <td>{{ $user->id }}</td>
+                                                    <td>{{ $user->email }}</td>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->role->ru_name or 'Нет роли' }}</td>
                                                     <td class="actions">
-                                                        <a href="{{ route('admin.users.edit', $item->id ) }}" class="on-default edit-row"><i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Изменить"></i></a>
-                                                        <a href="{{ route('admin.users.delete', $item->id) }}" class="on-default remove-row"><i class="fa fa-trash-o fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Удалить"></i></a>
+                                                        <a href="{{ route('admin.users.edit', $user->id ) }}" class="on-default edit-row"><i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Изменить"></i></a>
+                                                        <a href="{{ route('admin.users.delete', $user->id) }}" class="on-default remove-row"><i class="fa fa-trash-o fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Удалить"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -149,14 +149,14 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            @if(isset($items))
-                                <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">Показано {{ $items->count() }} из {{ $items->total() }} записей</div>
+                            @if(isset($users))
+                                <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">Показано {{ $users->count() }} из {{ $users->total() }} записей</div>
                             @endif
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                                @if(isset($items))
-                                    {{ $items->appends(['count_on_page' => $count_on_page, 'sort_name' => $sort_name, 'sort_arrow' => $sort_arrow, 'search_text' => $search_text, 'date_type'=>$date_type, 'date_s'=> $date_s, 'date_po'=>$date_po])->links() }}
+                                @if(isset($users))
+                                    {{ $users->appends(['count_on_page' => $count_on_page, 'sort_name' => $sort_name, 'sort_arrow' => $sort_arrow, 'search_text' => $search_text, 'date_type'=>$date_type, 'date_s'=> $date_s, 'date_po'=>$date_po])->links() }}
                                 @endif
                             </div>
                         </div>

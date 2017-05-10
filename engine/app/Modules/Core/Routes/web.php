@@ -27,20 +27,20 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'as'=>'admin.'], fun
         ])->where(['id'=>'[0-9]+']);
 
         /* POST запросы */
-        Route::get('/post_add', [
+        Route::post('/post_add', [
             'as'=>'post_add',
             'uses'=>'UserController@post_add'
         ]);
 
-        Route::get('/post_edit/{id}', [
+        Route::post('/post_edit/{id}', [
             'as'=>'post_edit',
             'uses'=>'UserController@post_edit'
         ])->where(['id'=>'[0-9]+']);
 
-        Route::get('/post_delete/{id}', [
+        Route::post('/post_delete', [
             'as'=>'post_delete',
             'uses'=>'UserController@post_delete'
-        ])->where(['id'=>'[0-9]+']);
+        ]);
     });
     /* Управление пользователями */
 });

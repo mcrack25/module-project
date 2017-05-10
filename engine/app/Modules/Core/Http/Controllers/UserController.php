@@ -2,6 +2,7 @@
 
 namespace App\Modules\Core\Http\Controllers;
 
+use App\Modules\Core\Models\Role;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
 use Illuminate\Http\Request;
@@ -60,36 +61,46 @@ class UserController extends AdminController
             $date_po = $request_all['date_po'];
         }
 
-        $items = User::with('role')->OnDates($date_type, $date_s, $date_po)->Search($search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
+        $users = User::with('role')->OnDates($date_type, $date_s, $date_po)->Search($search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
 
         $data = [
-            'items'=> $items,
-
+            'users'=> $users,
             'count_on_page'=>$count_on_page,
-
             'sort_name'=>$sort_name,
             'sort_arrow'=>$sort_arrow,
             'search_text'=>$search_text,
             'date_type'=>$date_type,
             'date_s'=>$date_s,
             'date_po'=>$date_po,
-
             'count_list'=>$count_on_page_mass
         ];
-
         return view('core::admin.users.all', $data);
     }
 
     public function add(){
-        return view('admin.users.add');
+        $roles = Role::all();
+        $data = [
+            'roles'=>$roles
+        ];
+        return view('core::admin.users.add', $data);
     }
 
     public function edit($id){
-        echo 'ok';
+        $user = User::findOrFail($id);
+        $roles = Role::All();
+        $data = [
+            'user'=>$user,
+            'roles'=>$roles
+        ];
+        return view('core::admin.users.edit', $data);
     }
 
     public function delete($id){
-        echo 'ok';
+        $user = User::findOrFail($id);
+        $data = [
+            'user'=>$user
+        ];
+        return view('core::admin.users.delete', $data);
     }
 
     /* POST запросы */
