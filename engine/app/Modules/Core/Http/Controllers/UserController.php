@@ -2,66 +2,32 @@
 
 namespace App\Modules\Core\Http\Controllers;
 
+use App\Modules\Core\Http\Requests\User\AddRequest;
+use App\Modules\Core\Http\Requests\User\AllRequest;
+use App\Modules\Core\Http\Requests\User\DeleteRequest;
+use App\Modules\Core\Http\Requests\User\EditRequest;
 use App\Modules\Core\Models\Role;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
-use Illuminate\Http\Request;
 use App\Modules\Admin\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends AdminController
-{
+class UserController extends AdminController{
 
-    public function all(Request $request){
-
+    public function all(AllRequest $request){
         $request_all = $request->all();
 
-        $count_on_page = Module::config('core', 'count_on_page');
+        $count_on_page_config = Module::config('core', 'count_on_page');
         $count_on_page_mass = Module::config('core', 'count_on_page_mass');
 
-        if(isset($request_all['count_on_page'])){
-            $this->validate($request, [
-                'count_on_page' => 'required|numeric',
-            ]);
-            $count_on_page = $request_all['count_on_page'];
-        }
-
-        $search_text = '';
-        if(isset($request_all['search_text'])){
-            $search_text = $request_all['search_text'];
-        }
-
-        $sort_arrow = 'asc';
-        if((isset($request_all['sort_arrow'])) and (in_array($request_all['sort_arrow'], ['asc', 'desc']))){
-            $sort_arrow = $request_all['sort_arrow'];
-        }
-
-        $sort_name = 'id';
-        if((isset($request_all['sort_name'])) and (in_array($request_all['sort_name'], ['id', 'email', 'name']))){
-            $sort_name = $request_all['sort_name'];
-        }
-
-        $date_type = null;
-        if((isset($request_all['date_type'])) and (in_array($request_all['date_type'], ['created_at', 'updated_at']))){
-            $date_type = $request_all['date_type'];
-        }
-
-        $date_s = null;
-        if(isset($request_all['date_s'])){
-            $this->validate($request, [
-                'date_s' => 'required|date|date_format:d.m.Y',
-            ]);
-            $date_s = $request_all['date_s'];
-        }
-
-        $date_po = null;
-        if(isset($request_all['date_po'])){
-            $this->validate($request, [
-                'date_po' => 'required|date|date_format:d.m.Y',
-            ]);
-            $date_po = $request_all['date_po'];
-        }
+        $count_on_page = (isset($request_all['count_on_page'])) ?  $request_all['count_on_page'] : $count_on_page_config;
+        $search_text = (isset($request_all['search_text'])) ?  $request_all['search_text'] : '';
+        $sort_arrow = (isset($request_all['sort_arrow'])) ?  $request_all['sort_arrow'] : 'asc';
+        $sort_name = (isset($request_all['sort_name'])) ?  $request_all['sort_name'] : 'id';
+        $date_type = (isset($request_all['date_type'])) ?  $request_all['date_type'] : null;
+        $date_s = (isset($request_all['date_s'])) ?  $request_all['date_s'] : null;
+        $date_po = (isset($request_all['date_po'])) ?  $request_all['date_po'] : null;
 
         $users = User::with('role')->OnDates($date_type, $date_s, $date_po)->Search(['name', 'email'], $search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
 
@@ -76,6 +42,7 @@ class UserController extends AdminController
             'date_po'=>$date_po,
             'count_list'=>$count_on_page_mass
         ];
+
         return view('core::admin.users.all', $data);
     }
 
@@ -118,15 +85,9 @@ class UserController extends AdminController
     }
 
     /* POST запросы */
-    public function post_add(Request $request){
-        $request_all = $request->all();
+    public function post_add(AddRequest $request){
 
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'role_id' => 'required|numeric',
-        ]);
+        $request_all = $request->all();
 
         if($request_all['role_id'] == 0){
             $request_all['role_id'] = null;
@@ -138,15 +99,8 @@ class UserController extends AdminController
         return redirect()->route('admin.users.all')->with('message', trans('core::users.message_add'));
     }
 
-    public function post_edit(Request $request, $id){
+    public function post_edit(EditRequest $request, $id){
         $request_all = $request->all();
-
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users,email' . ',' . $id,
-            'password' => 'required|min:6|confirmed',
-            'role_id' => 'required|numeric',
-        ]);
 
         $find_user = User::findOrFail($id);
         $find_user->name = $request_all['name'];
@@ -164,13 +118,9 @@ class UserController extends AdminController
         return redirect()->route('admin.users.edit', $id)->with('message', trans('core::users.message_edit'));
     }
 
-    public function post_delete(Request $request){
+    public function post_delete(DeleteRequest $request){
 
         $user_id = Auth::user()->id;
-
-        $this->validate($request, [
-            'user_ids.*' => 'required|numeric',
-        ]);
 
         $request_all = $request->all();
 

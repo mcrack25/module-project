@@ -28,6 +28,7 @@ return array(
     'App\\Modules\\Core\\Http\\Controllers\\RoleController' => $baseDir . '/app/Modules/Core/Http/Controllers/RoleController.php',
     'App\\Modules\\Core\\Http\\Controllers\\RouteController' => $baseDir . '/app/Modules/Core/Http/Controllers/RouteController.php',
     'App\\Modules\\Core\\Http\\Controllers\\UserController' => $baseDir . '/app/Modules/Core/Http/Controllers/UserController.php',
+    'App\\Modules\\Core\\Http\\Requests\\User\\AddRequest' => $baseDir . '/app/Modules/Core/Http/Requests/User/AddRequest.php',
     'App\\Modules\\Core\\Models\\Access' => $baseDir . '/app/Modules/Core/Models/Access.php',
     'App\\Modules\\Core\\Models\\Role' => $baseDir . '/app/Modules/Core/Models/Role.php',
     'App\\Modules\\Core\\Models\\Routes' => $baseDir . '/app/Modules/Core/Models/Routes.php',

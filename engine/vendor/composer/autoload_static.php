@@ -304,6 +304,7 @@ class ComposerStaticInitea77f1db4e37d3982785c3e488bad988
         'App\\Modules\\Core\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Modules/Core/Http/Controllers/RoleController.php',
         'App\\Modules\\Core\\Http\\Controllers\\RouteController' => __DIR__ . '/../..' . '/app/Modules/Core/Http/Controllers/RouteController.php',
         'App\\Modules\\Core\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Modules/Core/Http/Controllers/UserController.php',
+        'App\\Modules\\Core\\Http\\Requests\\User\\AddRequest' => __DIR__ . '/../..' . '/app/Modules/Core/Http/Requests/User/AddRequest.php',
         'App\\Modules\\Core\\Models\\Access' => __DIR__ . '/../..' . '/app/Modules/Core/Models/Access.php',
         'App\\Modules\\Core\\Models\\Role' => __DIR__ . '/../..' . '/app/Modules/Core/Models/Role.php',
         'App\\Modules\\Core\\Models\\Routes' => __DIR__ . '/../..' . '/app/Modules/Core/Models/Routes.php',
