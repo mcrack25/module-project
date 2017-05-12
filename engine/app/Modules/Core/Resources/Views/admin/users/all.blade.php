@@ -34,7 +34,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-addon">Дата:</span>
-                                    <select name="date_type" class="form-control">
+                                    <select name="date_type" class="form-control" style="width: 100px">
                                         <option value="created_at" {{ ($date_type == 'created_at') ? 'selected' : '' }}>Регистрации</option>
                                         <option value="updated_at" {{ ($date_type == 'updated_at') ? 'selected' : '' }}>Изменения</option>
                                     </select>

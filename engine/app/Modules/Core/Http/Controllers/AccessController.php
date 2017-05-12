@@ -11,6 +11,7 @@ use App\Modules\Core\Models\Access;
 use App\Modules\Core\Models\Role;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
+use Illuminate\Support\Facades\DB;
 
 class AccessController extends AdminController
 {
@@ -46,6 +47,58 @@ class AccessController extends AdminController
     }
     
     public function add(){
-        return view('core::admin.accesses.add', $data);
+        return view('core::admin.accesses.add');
+    }
+
+    public function edit($id){
+        $access = Access::findOrFail($id);
+        $data = [
+            'access' => $access
+        ];
+        return view('core::admin.accesses.edit', $data);
+    }
+
+    public function delete($id){
+        $access = Access::findOrFail($id);
+        $data = [
+            'access' => $access,
+        ];
+        return view('core::admin.accesses.delete', $data);
+    }
+
+    /* POST запросы */
+    public function post_add(AddRequest $request){
+        $request_all = $request->all();
+        Access::create($request_all);
+        return redirect()->route('admin.access.all')->with('message', trans('core::accesses.message_add'));
+    }
+
+    public function post_edit(EditRequest $request, $id){
+        $request_all = $request->all();
+
+        $find_access = Access::findOrFail($id);
+        $find_access->name = $request_all['name'];
+        $find_access->ru_name = $request_all['ru_name'];
+        $find_access->save();
+
+        return redirect()->route('admin.access.edit', $id)->with('message', trans('core::accesses.message_edit'));
+    }
+
+    public function post_delete(DeleteRequest $request){
+        $request_all = $request->all();
+        $access_ids = $request_all['access_ids'];
+
+        DB::transaction(function() use ($access_ids) {
+            $roles = Role::all();
+            foreach ($roles as $role) {
+                foreach ($access_ids as $access_id) {
+                    $role->access()->wherePivot('access_id', '=', $access_id)->detach();
+                }
+            }
+
+            Access::whereIn('id', $access_ids)->delete();
+        });
+
+        return redirect()->route('admin.access.all')->with('message', trans('core::accesses.message_delete'));
     }
 }

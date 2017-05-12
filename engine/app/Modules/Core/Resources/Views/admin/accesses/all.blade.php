@@ -31,10 +31,10 @@
 
                     <form id="search_form" method="GET" action="">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-7">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-addon">Дата:</span>
-                                    <select name="date_type" class="form-control">
+                                    <select name="date_type" class="form-control" style="width: 100px">
                                         <option value="created_at" {{ ($date_type == 'created_at') ? 'selected' : '' }}>Регистрации</option>
                                         <option value="updated_at" {{ ($date_type == 'updated_at') ? 'selected' : '' }}>Изменения</option>
                                     </select>
@@ -76,7 +76,8 @@
                                     <select name="sort_name" class="form-control" style="width:100px;" onchange="this.form.submit()">
                                         @if(isset($sort_name))
                                             <option value="id" {{ ($sort_name == 'id') ? 'selected' : '' }}>ID</option>
-                                            <option value="ru_name" {{ ($sort_name == 'ru_name') ? 'selected' : '' }}>Название роли</option>
+                                            <option value="name" {{ ($sort_name == 'name') ? 'selected' : '' }}>Ключ доступа</option>
+                                            <option value="ru_name" {{ ($sort_name == 'ru_name') ? 'selected' : '' }}>Название доступа</option>
                                         @endif
                                     </select>
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-sort"></i></span>
@@ -110,8 +111,8 @@
                                 <thead>
                                     <tr role="row">
                                         <th tabindex="0" class="text-center" style="width: 50px;">ID</th>
-                                        <th tabindex="0" class="text-center" style="width: 200px;">Название роли</th>
-                                        <th tabindex="0" class="text-center">Доступные разделы</th>
+                                        <th tabindex="0" class="text-center">Ключ доступа</th>
+                                        <th tabindex="0" class="text-center">Название доступа</th>
                                         <th tabindex="0" class="text-center" style="width: 196.2px;">Действия</th>
                                     </tr>
                                 </thead>
@@ -122,13 +123,11 @@
                                             @foreach ($accesses as $access)
                                                 <tr role="row" class="{{ ($loop->count % 2) ? 'odd' : 'even' }}">
                                                     <td>{{ $access->id }}</td>
+                                                    <td>{{ $access->name }}</td>
                                                     <td>{{ $access->ru_name }}</td>
-                                                    <td>
-
-                                                    </td>
                                                     <td class="actions">
-                                                        <a href="{{ route('admin.roles.edit', $role->id ) }}" class="on-default edit-row"><i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Изменить"></i></a>
-                                                        <a href="{{ route('admin.roles.delete', $role->id) }}" class="on-default remove-row"><i class="fa fa-trash-o fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Удалить"></i></a>
+                                                        <a href="{{ route('admin.access.edit', $access->id ) }}" class="on-default edit-row"><i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Изменить"></i></a>
+                                                        <a href="{{ route('admin.access.delete', $access->id) }}" class="on-default remove-row"><i class="fa fa-trash-o fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Удалить"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -148,14 +147,14 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            @if(isset($roles))
-                                <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">Показано {{ $roles->count() }} из {{ $roles->total() }} записей</div>
+                            @if(isset($accesses))
+                                <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">Показано {{ $accesses->count() }} из {{ $accesses->total() }} записей</div>
                             @endif
                         </div>
                         <div class="col-sm-6">
                             <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                                @if(isset($roles))
-                                    {{ $roles->appends(['count_on_page' => $count_on_page, 'sort_name' => $sort_name, 'sort_arrow' => $sort_arrow, 'search_text' => $search_text, 'date_type'=>$date_type, 'date_s'=> $date_s, 'date_po'=>$date_po])->links() }}
+                                @if(isset($accesses))
+                                    {{ $accesses->appends(['count_on_page' => $count_on_page, 'sort_name' => $sort_name, 'sort_arrow' => $sort_arrow, 'search_text' => $search_text, 'date_type'=>$date_type, 'date_s'=> $date_s, 'date_po'=>$date_po])->links() }}
                                 @endif
                             </div>
                         </div>

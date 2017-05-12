@@ -44,7 +44,7 @@ class AllRequest extends FormRequest
         return [
             'count_on_page' => 'numeric',
             'sort_arrow' => 'in:asc,desc',
-            'sort_name' => 'in:id,ru_name',
+            'sort_name' => 'in:id,name,ru_name',
             'date_type' => 'in:created_at,updated_at',
         ] + $filter;
     }

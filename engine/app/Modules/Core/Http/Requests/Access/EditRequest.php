@@ -26,8 +26,8 @@ class EditRequest extends FormRequest
         $id = $this->route('id');
 
         return [
-            'ru_name' => 'required|max:255|unique:roles,ru_name' . ',' . $id,
-            'access.*' => 'in:on',
+            'name' => 'required|regex:([a-z0-9_]+)|max:255|unique:accesses,name' . ',' . $id,
+            'ru_name' => 'required',
         ];
     }
 
@@ -35,16 +35,15 @@ class EditRequest extends FormRequest
         return [
             'max' => 'Поле <b>:attribute</b> должно содержать не более :max символов.',
             'unique' => 'Поле <b>:attribute</b> должно быть уникальным.',
-            'numeric' => 'Поле <b>:attribute</b> должно быть числовым.',
             'required' => 'Поле <b>:attribute</b> является обязательным.',
-            'in' => 'Параметр <b>:attribute</b> имеет недопустимый параметр.',
+            'regex' => 'Поле <b>:attribute</b> должно содержать только следующие символы:<br>[a-z0-9_].',
         ];
     }
 
     public function attributes(){
         return [
-            'ru_name' => 'Название роли',
-            'access.*' => 'Права доступа',
+            'ru_name' => 'Название доступа',
+            'name' => 'Ключ доступа',
         ];
     }
 
