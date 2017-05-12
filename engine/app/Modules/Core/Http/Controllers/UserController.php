@@ -10,8 +10,6 @@ use App\Modules\Core\Models\Role;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
 use App\Modules\Admin\Http\Controllers\AdminController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends AdminController{
 
@@ -119,36 +117,9 @@ class UserController extends AdminController{
     }
 
     public function post_delete(DeleteRequest $request){
-
-        $user_id = Auth::user()->id;
-
         $request_all = $request->all();
-
         $where_in = $request_all['user_ids'];
-
-        if(empty($where_in)){
-            return redirect()->route('admin.users.all')->withErrors([trans('core::users.error_delete_empty')]);
-        }
-
-        $user_in_deleted = false;
-        foreach($where_in as $key => $value){
-            if($user_id == $value){
-                unset($where_in[$key]);
-                $user_in_deleted = true;
-            }
-        }
-
-        $delete_me = Validator::make([],[]);
-        if($user_in_deleted){
-            $delete_me->errors()->add('delete_me', trans('core::users.error_delete_me'));
-        }
-
         User::whereIn('id', $where_in)->delete();
-
-        if(empty($where_in)){
-            return redirect()->route('admin.users.all')->withErrors($delete_me);
-        } else {
-            return redirect()->route('admin.users.all')->withErrors($delete_me)->with('message', trans('core::users.message_delete'));
-        }
+        return redirect()->route('admin.users.all')->with('message', trans('core::users.message_delete'));
     }
 }

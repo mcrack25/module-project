@@ -14,7 +14,7 @@
                     </div>
                 </div>
 
-                <form id="add_form_user" role="form" method="POST" action="{{ route('admin.users.post_add') }}">
+                <form role="form" method="POST" action="{{ route('admin.users.post_add') }}">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-sm-12">

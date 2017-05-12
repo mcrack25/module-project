@@ -200,7 +200,7 @@
 @if(session('message'))
     <script>
         $(document).ready(function () {
-            $.Notification.autoHideNotify('success', 'top right', 'Выполнено!','{{session('message')}}');
+            $.Notification.autoHideNotify('success', 'top right', 'Выполнено!','{!! session('message') !!}');
         });
     </script>
 @endif

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Core\Http\Requests\User;
+namespace App\Modules\Core\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 //use Illuminate\Support\Facades\Request;
@@ -44,7 +44,7 @@ class AllRequest extends FormRequest
         return [
             'count_on_page' => 'numeric',
             'sort_arrow' => 'in:asc,desc',
-            'sort_name' => 'in:id,email,name',
+            'sort_name' => 'in:id,ru_name',
             'date_type' => 'in:created_at,updated_at',
         ] + $filter;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Core\Http\Requests\User;
+namespace App\Modules\Core\Http\Requests\Access;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -23,23 +23,24 @@ class DeleteRequest extends FormRequest
      * @return array
      */
     public function rules(){
-        $user_id = Auth::user()->id;
         return [
-            'user_ids.*' => 'required|numeric|not_in:'.$user_id,
+            'role_ids.*' => 'required|numeric',
+            'role_id' => 'numeric',
         ];
     }
 
     public function messages(){
         return [
-            'numeric' => '<b>:attribute</b> должен иметь числовое значение.',
-            'required' => '<b>:attribute</b> не выбран.',
-            'not_in' => 'Нельзя удалить самого себя из базы',
+            'numeric' => '<b>:attribute</b> должена иметь числовое значение.',
+            'role_id.numeric' => 'Поле <b>:attribute</b> должено иметь числовое значение.',
+            'required' => '<b>:attribute</b> не выбрана.',
         ];
     }
 
     public function attributes(){
         return [
-            'user_ids.*' => 'Пользователь',
+            'role_ids.*' => 'Выбраная роль',
+            'role_id' => 'Назначить другую роль',
         ];
     }
 }
