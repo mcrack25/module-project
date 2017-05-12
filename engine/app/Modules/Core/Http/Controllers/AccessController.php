@@ -28,7 +28,7 @@ class AccessController extends AdminController
         $date_s = (isset($request_all['date_s'])) ?  $request_all['date_s'] : null;
         $date_po = (isset($request_all['date_po'])) ?  $request_all['date_po'] : null;
 
-        $accesses = Access::OnDates($date_type, $date_s, $date_po)->Search(['ru_name'], $search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
+        $accesses = Access::OnDates($date_type, $date_s, $date_po)->Search(['name', 'ru_name'], $search_text)->orderBy($sort_name, $sort_arrow)->paginate($count_on_page);
 
         $data = [
             'accesses'=> $accesses,
@@ -43,5 +43,9 @@ class AccessController extends AdminController
         ];
 
         return view('core::admin.accesses.all', $data);
+    }
+    
+    public function add(){
+        return view('core::admin.accesses.add', $data);
     }
 }
