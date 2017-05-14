@@ -15,4 +15,8 @@ class Routes extends Model
     protected $fillable = [
         'route', 'ru_name'
     ];
+
+    public function access(){
+        return $this->hasOne('App\Modules\Core\Models\Access', 'id', 'access_id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Modules\Core\Http\Requests\User\AllRequest;
 use App\Modules\Core\Http\Requests\User\DeleteRequest;
 use App\Modules\Core\Http\Requests\User\EditRequest;
 use App\Modules\Core\Models\Role;
+use App\Modules\Core\Models\Routes;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
 use App\Modules\Admin\Http\Controllers\AdminController;
@@ -46,14 +47,20 @@ class UserController extends AdminController{
 
     public function add(){
         $roles = Role::all();
-
         $new_role = new Role();
         $new_role->id = 0;
         $new_role->ru_name = 'Без роли';
         $roles[] = $new_role;
 
+        $routes = Routes::all();
+        $new_routes = new Routes();
+        $new_routes->id = 0;
+        $new_routes->ru_name = 'По умолчанию';
+        $routes[] = $new_routes;
+
         $data = [
-            'roles'=>$roles
+            'roles'=>$roles,
+            'routes'=>$routes,
         ];
         return view('core::admin.users.add', $data);
     }
@@ -67,9 +74,16 @@ class UserController extends AdminController{
         $new_role->ru_name = 'Без роли';
         $roles[] = $new_role;
 
+        $routes = Routes::all();
+        $new_routes = new Routes();
+        $new_routes->id = 0;
+        $new_routes->ru_name = 'По умолчанию';
+        $routes[] = $new_routes;
+
         $data = [
             'user'=>$user,
-            'roles'=>$roles
+            'roles'=>$roles,
+            'routes'=>$routes,
         ];
         return view('core::admin.users.edit', $data);
     }
@@ -91,6 +105,10 @@ class UserController extends AdminController{
             $request_all['role_id'] = null;
         }
 
+        if($request_all['route_id'] == 0){
+            $request_all['route_id'] = null;
+        }
+
         $request_all['password'] = bcrypt($request_all['password']);
 
         User::create($request_all);
@@ -109,6 +127,12 @@ class UserController extends AdminController{
             $find_user->role_id = null;
         } else {
             $find_user->role_id = $request_all['role_id'];
+        }
+
+        if($request_all['route_id'] == 0){
+            $find_user->route_id = null;
+        } else {
+            $find_user->route_id = $request_all['route_id'];
         }
 
         $find_user->save();

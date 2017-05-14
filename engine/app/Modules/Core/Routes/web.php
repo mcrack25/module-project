@@ -125,4 +125,45 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'as'=>'admin.'], fun
         ]);
     });
     /* Управление доступами */
+
+    /* Управление роутами */
+    Route::group(['prefix' => 'routes', 'roles'=>'admin_index', 'as'=>'routes.'], function () {
+
+        Route::get('/', [
+            'as'=>'all',
+            'uses'=>'RouteController@all'
+        ]);
+
+        Route::get('/add', [
+            'as'=>'add',
+            'uses'=>'RouteController@add'
+        ]);
+
+        Route::get('/edit/{id}', [
+            'as'=>'edit',
+            'uses'=>'RouteController@edit'
+        ])->where(['id'=>'[0-9]+']);
+
+        Route::get('/delete/{id}', [
+            'as'=>'delete',
+            'uses'=>'RouteController@delete'
+        ])->where(['id'=>'[0-9]+']);
+
+        /* POST запросы */
+        Route::post('/post_add', [
+            'as'=>'post_add',
+            'uses'=>'RouteController@post_add'
+        ]);
+
+        Route::post('/post_edit/{id}', [
+            'as'=>'post_edit',
+            'uses'=>'RouteController@post_edit'
+        ])->where(['id'=>'[0-9]+']);
+
+        Route::post('/post_delete', [
+            'as'=>'post_delete',
+            'uses'=>'RouteController@post_delete'
+        ]);
+    });
+    /* Управление роутами */
 });

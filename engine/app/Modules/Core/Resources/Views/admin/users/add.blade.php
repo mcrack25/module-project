@@ -18,7 +18,7 @@
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="datatable" class="table table-bordered dataTable no-footer text-center" role="grid" >
+                            <table id="datatable" class="table table-bordered dataTable no-footer text-center table_middle" role="grid" >
                                 <tbody>
                                     <tr role="row">
                                         <th class="text-right" style="width: 200px;">ФИО (или название ОГВ):</th>
@@ -46,6 +46,22 @@
                                                             <option value="{{ $role->id }}" selected>{{ $role->ru_name }}</option>
                                                         @else
                                                             <option value="{{ $role->id }}">{{ $role->ru_name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr role="row">
+                                        <th class="text-right">Редирект:</th>
+                                        <td>
+                                            <select class="form-control" name="route_id">
+                                                @if($routes)
+                                                    @foreach($routes as $route)
+                                                        @if(old('route_id') == $route->id)
+                                                            <option value="{{ $route->id }}" selected>{{ $route->ru_name }}</option>
+                                                        @else
+                                                            <option value="{{ $route->id }}">{{ $route->ru_name }}</option>
                                                         @endif
                                                     @endforeach
                                                 @endif

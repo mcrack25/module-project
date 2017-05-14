@@ -11,6 +11,7 @@ use App\Modules\Core\Models\Access;
 use App\Modules\Core\Models\Role;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends AdminController
 {
@@ -91,6 +92,13 @@ class RoleController extends AdminController
 
         $role = new Role();
         $role->ru_name = $request_all['ru_name'];
+
+        if($request_all['route_id'] == 0){
+            $role->route_id = null;
+        } else {
+            $role->route_id = $request_all['route_id'];
+        }
+
         $role->save();
 
         if(!empty($request_all['access'])) {
@@ -107,6 +115,11 @@ class RoleController extends AdminController
 
         $roles = Role::findOrFail($id);
         $roles->ru_name = $request_all['ru_name'];
+        if($request_all['route_id'] == 0){
+            $roles->route_id = null;
+        } else {
+            $roles->route_id = $request_all['route_id'];
+        }
         $roles->save();
         $roles->access()->detach();
 
@@ -125,8 +138,10 @@ class RoleController extends AdminController
 
         if((!empty($request_all['role_id'])) and ($request_all['role_id'] != 0)){
             $role_id = $request_all['role_id'];
-            User::whereIn('role_id', $where_in)->update(['role_id' => $role_id]);
-            Role::whereIn('id', $where_in)->delete();
+            DB::transaction(function() use ($where_in, $role_id) {
+                User::whereIn('role_id', $where_in)->update(['role_id' => $role_id]);
+                Role::whereIn('id', $where_in)->delete();
+            });
             return redirect()->route('admin.roles.all')->with('message', trans('core::roles.message_delete_add_role'));
         } else {
             Role::whereIn('id', $where_in)->delete();

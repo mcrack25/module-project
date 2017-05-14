@@ -17,6 +17,7 @@ class CreateRoutesTable extends Migration
             $table->increments('id');
             $table->char('route', 64);
             $table->char('ru_name', 128);
+            $table->integer('access_id')->default(0);
             $table->timestamps();
         });
     }
