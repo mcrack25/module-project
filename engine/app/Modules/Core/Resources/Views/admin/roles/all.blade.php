@@ -111,8 +111,8 @@
                                     <tr role="row">
                                         <th tabindex="0" class="text-center" style="width: 50px;">ID</th>
                                         <th tabindex="0" class="text-center" style="width: 200px;">Название роли</th>
-                                        <th tabindex="0" class="text-center">Доступные разделы</th>
-                                        <th tabindex="0" class="text-center" style="width: 196.2px;">Действия</th>
+                                        <th tabindex="0" class="text-center">Права доступа</th>
+                                        <th tabindex="0" class="text-center" style="width: 150px;">Действия</th>
                                     </tr>
                                 </thead>
 

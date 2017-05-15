@@ -113,10 +113,9 @@
                                         <th tabindex="0" class="text-center" style="width: 50px;">ID</th>
                                         <th tabindex="0" class="text-center">Ключ доступа</th>
                                         <th tabindex="0" class="text-center">Название доступа</th>
-                                        <th tabindex="0" class="text-center" style="width: 196.2px;">Действия</th>
+                                        <th tabindex="0" class="text-center" style="width: 150px;">Действия</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     @if(isset($accesses))
                                         @if($accesses->count() > 0)

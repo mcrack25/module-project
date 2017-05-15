@@ -114,7 +114,7 @@
                                         <th tabindex="0" class="text-center" style="width: 250px;">Логин</th>
                                         <th tabindex="0" class="text-center">ФИО или ОГВ</th>
                                         <th tabindex="0" class="text-center" style="width: 196.2px;">Назначенная роль</th>
-                                        <th tabindex="0" class="text-center" style="width: 196.2px;">Действия</th>
+                                        <th tabindex="0" class="text-center" style="width: 150px;">Действия</th>
                                     </tr>
                                 </thead>
 
@@ -126,7 +126,7 @@
                                                     <td>{{ $user->id }}</td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->role->ru_name or 'Нет роли' }}</td>
+                                                    <td>{!! $user->role->ru_name or '<b style="color:red;">Нет роли</b>' !!}</td>
                                                     <td class="actions">
                                                         <a href="{{ route('admin.users.edit', $user->id ) }}" class="on-default edit-row"><i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Изменить"></i></a>
                                                         <a href="{{ route('admin.users.delete', $user->id) }}" class="on-default remove-row"><i class="fa fa-trash-o fa-lg" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Удалить"></i></a>

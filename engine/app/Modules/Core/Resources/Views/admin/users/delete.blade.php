@@ -19,7 +19,7 @@
                     <input type="hidden" name="user_ids[]" value="{{ $user->id }}">
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="datatable" class="table table-bordered dataTable no-footer text-center" role="grid" >
+                            <table id="datatable" class="table table-bordered dataTable no-footer text-center table_middle" role="grid" >
                                 <tbody>
                                 <tr role="row">
                                     <th class="text-right" style="width: 200px;">ФИО (или название ОГВ):</th>

@@ -13,7 +13,7 @@ class Access extends Model
     protected $table = 'accesses';
 
     protected $fillable = [
-        'id', 'name', 'ru_name'
+        'name', 'ru_name'
     ];
 
     public function roles(){

@@ -3,7 +3,6 @@
 namespace App\Modules\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use App\Modules\Core\Models\Service\Searchable;
 
 class Routes extends Model

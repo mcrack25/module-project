@@ -11,8 +11,12 @@ class Role extends Model
 
     protected $table = 'roles';
 
+    protected $fillable = [
+        'ru_name', 'route_id'
+    ];
+
     public function access(){
-        return $this->belongsToMany('App\Modules\Core\Models\Access', 'roles_access', 'role_id', 'access_id', 'route_id');
+        return $this->belongsToMany('App\Modules\Core\Models\Access', 'roles_access', 'role_id', 'access_id');
     }
 
     public function hasAnyAccess($roles){
@@ -40,7 +44,6 @@ class Role extends Model
                 }
             }
         }
-
         return false;
     }
 
