@@ -115,11 +115,6 @@ class RoleController extends AdminController
 
         $roles = Role::findOrFail($id);
         $roles->ru_name = $request_all['ru_name'];
-        if($request_all['route_id'] == 0){
-            $roles->route_id = null;
-        } else {
-            $roles->route_id = $request_all['route_id'];
-        }
         $roles->save();
         $roles->access()->detach();
 

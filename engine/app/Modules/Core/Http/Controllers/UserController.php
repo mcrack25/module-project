@@ -11,6 +11,7 @@ use App\Modules\Core\Models\Routes;
 use App\Modules\Core\Models\User;
 use Caffeinated\Modules\Facades\Module;
 use App\Modules\Admin\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends AdminController{
 
@@ -41,6 +42,7 @@ class UserController extends AdminController{
             'date_po'=>$date_po,
             'count_list'=>$count_on_page_mass
         ];
+
 
         return view('core::admin.users.all', $data);
     }

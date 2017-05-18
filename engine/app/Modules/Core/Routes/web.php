@@ -4,7 +4,7 @@
 Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'as'=>'admin.'], function () {
 
     /* Управление пользователями */
-    Route::group(['prefix' => 'users', 'roles'=>'admin_index', 'as'=>'users.'], function () {
+    Route::group(['prefix' => 'users', 'roles'=>'admin_users', 'as'=>'users.'], function () {
 
         Route::get('/', [
             'as'=>'all',
@@ -45,7 +45,7 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'as'=>'admin.'], fun
     /* Управление пользователями */
 
     /* Управление ролями */
-    Route::group(['prefix' => 'roles', 'roles'=>'admin_index', 'as'=>'roles.'], function () {
+    Route::group(['prefix' => 'roles', 'roles'=>'admin_roles', 'as'=>'roles.'], function () {
 
         Route::get('/', [
             'as'=>'all',
@@ -86,7 +86,7 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'as'=>'admin.'], fun
     /* Управление ролями */
 
     /* Управление доступами */
-    Route::group(['prefix' => 'access', 'roles'=>'admin_index', 'as'=>'access.'], function () {
+    Route::group(['prefix' => 'access', 'roles'=>'admin_accesses', 'as'=>'access.'], function () {
 
         Route::get('/', [
             'as'=>'all',
@@ -127,7 +127,7 @@ Route::group(['middleware' => 'roles', 'prefix' => 'admin', 'as'=>'admin.'], fun
     /* Управление доступами */
 
     /* Управление роутами */
-    Route::group(['prefix' => 'routes', 'roles'=>'admin_index', 'as'=>'routes.'], function () {
+    Route::group(['prefix' => 'routes', 'roles'=>'admin_routes', 'as'=>'routes.'], function () {
 
         Route::get('/', [
             'as'=>'all',

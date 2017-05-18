@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ trans('admin::admin.meta_description') }}">
+    <meta name="description" content="{{ Module::action('config::getOne', ['item'=>'admin_description', 'or'=>'Базовое приложение']) }}">
     <meta name="author" content="M-Crack">
 
-    <title>{{ trans('admin::admin.meta_title') }}</title>
+    <title>{{ Module::action('config::getOne', ['item'=>'admin_name', 'or'=>'Базовое приложение']) }}</title>
     <link rel="shortcut icon" href="{{ Module::asset('admin::img/favicon.png') }}" type="image/png">
 
     <!--Morris Chart CSS -->
@@ -88,7 +88,7 @@
             <!--- Divider -->
             <div id="sidebar-menu">
 
-                MENU
+                {!! Module::action('menu::show') !!}
 
                 <div class="clearfix"></div>
             </div>
@@ -108,8 +108,8 @@
                 <!-- Page-Title -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="page-title">{{ trans('admin::admin.name') }}</h4>
-                        <p class="text-muted page-title-alt">{{ trans('admin::admin.description') }}</p>
+                        <h4 class="page-title">{{ Module::action('config::getOne', ['item'=>'admin_name', 'or'=>'Админ панель']) }}</h4>
+                        <p class="text-muted page-title-alt">{{ Module::action('config::getOne', ['item'=>'admin_description', 'or'=>'Базовое приложение']) }}</p>
                     </div>
                 </div>
 

@@ -12,7 +12,7 @@ class Routes extends Model
     protected $table = 'routes';
 
     protected $fillable = [
-        'route', 'ru_name'
+        'route', 'ru_name', 'access_id'
     ];
 
     public function access(){

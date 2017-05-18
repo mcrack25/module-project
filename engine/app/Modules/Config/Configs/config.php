@@ -1,0 +1,1 @@
+{"admin_name":"MCRACK-CMS","admin_description":"\u0411\u0430\u0437\u043e\u0432\u043e\u0435 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0435"}
