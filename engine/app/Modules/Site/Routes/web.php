@@ -14,7 +14,7 @@
 Route::group(['middleware'=>'web'], function () {
 
     Route::get('/', function () {
-        dd('This is the site module index page. Build something great!');
+        return redirect()->route('login');
     })->name('index');
 
 });
