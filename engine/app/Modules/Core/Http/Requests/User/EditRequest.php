@@ -22,15 +22,22 @@ class EditRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(){
+    public function rules(Request $request){
         $id = $this->route('id');
+        $request_all = $request->all();
+
+        $mass = [];
+        if(isset($request_all['edit_pass'])){
+            $mass = [
+                'password' => 'required|min:6|confirmed',
+            ];
+        }
 
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users' . ',' . $id,
-            'password' => 'required|min:6|confirmed',
             'role_id' => 'required|numeric',
-        ];
+        ] + $mass;
     }
 
     public function messages(){

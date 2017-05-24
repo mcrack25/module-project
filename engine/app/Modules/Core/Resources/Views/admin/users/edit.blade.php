@@ -1,5 +1,25 @@
 @extends('admin::main')
 
+@section('head')
+    <link href="{{ Module::asset('admin::assets/plugins/switchery/css/switchery.min.css') }}" rel="stylesheet" />
+@stop
+
+@section('after_bootstrap_js')
+    <script src="{{ Module::asset('admin::assets/plugins/switchery/js/switchery.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            var checkboxes = $("#edit_pass");
+
+            checkboxes.change(function() {
+                $("#password").attr("disabled", !checkboxes.is(":checked"));
+                $("#password_confirmation").attr("disabled", !checkboxes.is(":checked"));
+            });
+
+        });
+    </script>
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
@@ -29,12 +49,16 @@
                                         <td><input name="email" type="email" class="form-control" placeholder="Email" value="{{ $user->email }}" required></td>
                                     </tr>
                                     <tr role="row">
+                                        <th class="text-right">Изменить пароль:</th>
+                                        <td><input name="edit_pass" id="edit_pass" type="checkbox" data-plugin="switchery" data-color="#5d9cec"></td>
+                                    </tr>
+                                    <tr role="row">
                                         <th class="text-right">Пароль:</th>
-                                        <td><input name="password" type="password" class="form-control" value="" placeholder="Пароль" required></td>
+                                        <td><input name="password" id="password" type="password" disabled class="form-control" value="" placeholder="Пароль"></td>
                                     </tr>
                                     <tr role="row">
                                         <th class="text-right">Повторите пароль:</th>
-                                        <td><input name="password_confirmation" type="password" class="form-control" value="" placeholder="Повторите пароль" required></td>
+                                        <td><input name="password_confirmation" id="password_confirmation" disabled type="password" class="form-control" value="" placeholder="Повторите пароль" required></td>
                                     </tr>
                                     <tr role="row">
                                         <th class="text-right">Роль:</th>

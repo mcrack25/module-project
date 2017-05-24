@@ -123,7 +123,7 @@ class UserController extends AdminController{
         $find_user = User::findOrFail($id);
         $find_user->name = $request_all['name'];
         $find_user->email = $request_all['email'];
-        $find_user->password = bcrypt($request_all['password']);
+
 
         if($request_all['role_id'] == 0){
             $find_user->role_id = null;
@@ -135,6 +135,10 @@ class UserController extends AdminController{
             $find_user->route_id = null;
         } else {
             $find_user->route_id = $request_all['route_id'];
+        }
+
+        if(isset($request_all['edit_pass'])){
+            $find_user->password = bcrypt($request_all['password']);
         }
 
         $find_user->save();
