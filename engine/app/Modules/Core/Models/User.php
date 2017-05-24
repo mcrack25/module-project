@@ -7,8 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Modules\Core\Models\Service\Searchable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable{
+
     use Notifiable;
 
     use Searchable;
@@ -38,9 +38,20 @@ class User extends Authenticatable
         return $this->hasOne('App\Modules\Core\Models\Role', 'id', 'role_id');
     }
 
+
+    public function accesses_all(){
+        $role = $this->belongsTo(Role::class, 'role_id', 'id');
+        return $role->getResults()->belongsToMany(Access::class, 'roles_access', 'role_id', 'access_id');
+    }
+
+    public function accesses(){
+        $role = $this->belongsTo(Role::class, 'role_id', 'id');
+        return $role->getResults()->belongsToMany(Access::class, 'roles_access', 'role_id', 'access_id');
+    }
+    /*
     public function accesses(){
         return $this->role->access()->get();
-    }
+    }*/
 
     public function in_access($mass){
         $access = $this->role->access()->get();

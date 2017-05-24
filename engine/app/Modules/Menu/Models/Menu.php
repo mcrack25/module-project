@@ -20,7 +20,7 @@ class Menu extends Model{
     }
 
     public function submenu_access(){
-        $accesses = Auth::user()->accesses()->pluck('id')->toarray();
+        $accesses = Auth::user()->accesses()->get()->pluck('id')->toarray();
 
         return $this->hasMany('App\Modules\Menu\Models\Menu', 'parent_id', 'id')->Where(function($query) use ($accesses){
 

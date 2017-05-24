@@ -17,7 +17,7 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::get('/', [
             'as' => 'index',
-            'uses' => 'IndexController@index',
+            'uses' => 'AdminController@index',
             'roles' => ['admin_index']
         ]);
 
