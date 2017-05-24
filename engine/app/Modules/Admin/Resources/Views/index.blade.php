@@ -7,7 +7,7 @@
 
                 <table class="table table-bordered table-str text-center table_middle" role="grid">
                     <tr>
-                        <th colspan="3" class="info text-center">Информация о пользователе</th>
+                        <th colspan="3" class="info text-center" style="font-size: 16px">Информация о пользователе</th>
                     </tr>
                     <tr>
                         <td rowspan="3" class="success">
