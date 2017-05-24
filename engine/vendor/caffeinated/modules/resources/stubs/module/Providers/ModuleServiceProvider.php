@@ -16,6 +16,10 @@ class ModuleServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../Resources/Lang', 'DummySlug');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'DummySlug');
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations', 'DummySlug');
+
+        $this->publishes([
+            __DIR__.'/../Assets' => public_path('/modules/DummySlug'),
+        ], 'modules');
     }
 
     /**

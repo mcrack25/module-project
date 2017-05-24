@@ -15,7 +15,6 @@
                 $("#password").attr("disabled", !checkboxes.is(":checked"));
                 $("#password_confirmation").attr("disabled", !checkboxes.is(":checked"));
             });
-
         });
     </script>
 @stop

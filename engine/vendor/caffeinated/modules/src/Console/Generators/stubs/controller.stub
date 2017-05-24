@@ -9,5 +9,5 @@ use DummyRootNamespaceHttp\Controllers\Controller;
 
 class DummyClass extends Controller
 {
-    //
+    //public function all(){}
 }

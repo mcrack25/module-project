@@ -13,6 +13,6 @@ class DummyClass extends Seeder
      */
     public function run()
     {
-        //
+        // $this->call(TestTableSeeder::class);
     }
 }
