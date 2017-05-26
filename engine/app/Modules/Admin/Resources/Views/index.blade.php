@@ -13,7 +13,7 @@
                         <td rowspan="3" class="success">
                             <img src="{{ Module::asset('admin::assets/images/users/avatar-1.png') }}" style="width:200px">
                         </td>
-                        <th class="active text-right">Имя</th>
+                        <th class="active text-right" style="width: 180px">ФИО или название ОГВ</th>
                         <td class="active text-left">{{ $user->name }}</td>
                     </tr>
                     <tr class="active">

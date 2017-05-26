@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-md-6 col-sm-12">
 
                         <h3 class="text-center">Структура меню</h3>
 
@@ -51,7 +51,7 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-md-6 col-sm-12">
                         <h3 class="text-center">Добавление пункта меню</h3>
                         <form method="POST" action="{{ route('admin.menu.post_add') }}">
                             {{ csrf_field() }}
