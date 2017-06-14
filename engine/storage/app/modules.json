@@ -1,0 +1,72 @@
+{
+    "Admin": {
+        "basename": "Admin",
+        "name": "admin",
+        "slug": "admin",
+        "version": "1.0",
+        "description": "admin",
+        "id": -2012344970,
+        "enabled": true,
+        "order": 9001
+    },
+    "Config": {
+        "basename": "Config",
+        "name": "config",
+        "slug": "config",
+        "version": "1.0",
+        "description": "config",
+        "id": -729141380,
+        "enabled": true,
+        "order": 9001
+    },
+    "Core": {
+        "basename": "Core",
+        "name": "core",
+        "slug": "core",
+        "version": "1.0",
+        "description": "core",
+        "id": 1804436815,
+        "enabled": true,
+        "order": 9001
+    },
+    "Menu": {
+        "basename": "Menu",
+        "name": "menu",
+        "slug": "menu",
+        "version": "1.0",
+        "description": "menu",
+        "id": 2097494675,
+        "enabled": true,
+        "order": 9001
+    },
+    "Note": {
+        "basename": "Note",
+        "name": "note",
+        "slug": "note",
+        "version": "1.0",
+        "description": "note",
+        "id": -809633260,
+        "enabled": true,
+        "order": 9001
+    },
+    "Site": {
+        "basename": "Site",
+        "name": "site",
+        "slug": "site",
+        "version": "1.0",
+        "description": "site",
+        "id": 1766001124,
+        "enabled": true,
+        "order": 9001
+    },
+    "Test": {
+        "basename": "Test",
+        "name": "test",
+        "slug": "test",
+        "version": "test",
+        "description": "test",
+        "id": -662733300,
+        "enabled": true,
+        "order": 9001
+    }
+}
